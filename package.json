@@ -1,0 +1,23 @@
+{
+  "name": "tensorflow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aveldanov/tensorflow.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aveldanov/tensorflow/issues"
+  },
+  "homepage": "https://github.com/aveldanov/tensorflow#readme",
+  "dependencies": {
+    "@tensorflow/tfjs": "^1.2.9",
+    "@tensorflow/tfjs-node": "^1.2.9"
+  }
+}
