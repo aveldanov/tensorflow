@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script>
 
 
@@ -49,63 +49,55 @@
 
 
 
+
+
+
+
+
     (async () => {
-
-
-      //Import CSV
-
       const houseSalesDataset = tf.data.csv("http://127.0.0.1:8080/kc_house_data.csv");
 
+      const sampleDataset = houseSalesDataset.take(10);
+      const dataArray = await sampleDataset.toArray();
+      console.log(dataArray);
 
 
-      //Extract x and y from the dataset to plot(visual)
-      const pointsDataset = houseSalesDataset.map(item => ({
+      const points = houseSalesDataset.map(item => ({
         x: item.sqft_living15,
         y: item.price
-      }));
-      const points = await pointsDataset.toArray();
+      }))
+      // console.log(await points.toArray());
+      plot(await points.toArray(), "Square Feet")
 
 
-      //remove odd element
-      if (points.length % 2 !== 0) {
-        points.pop();
-      }
-
-
-
-      //Shuffle data
-      tf.util.shuffle(points);
-      plot(points, "Square Feet")
-
-
-      //Extract Features (input)
-      const featureValues = points.map(item => item.x);
+      //Features (input)
+      const featureValues = await points.map(item => item.x).toArray();
 
       const featureTensor = tf.tensor2d(featureValues, [featureValues.length, 1]);
 
+      // console.log(featureTensor);
 
-      //Extract Labels (outputs)
+      //Labels (outputs)
 
-      const labelValues = points.map(item => item.y);
+      const labelValues = await points.map(item => item.y).toArray();
       const labelTensor = tf.tensor2d(labelValues, [labelValues.length, 1]);
 
+      // console.log(labelTensor);
 
-      //Normilize features and labels
+      featureTensor.print();
+      labelTensor.print();
+
       const normalisedFeature = normilise(featureTensor);
       const normalisedLabel = normilise(labelTensor);
 
-      // console.log(normalisedFeature);
+      // normalisedFeature.print();
 
 
-      const [traningFeatureTensor, testtingFeatureTesnor] = tf.split(normalisedFeature.tensor, 2);
-      const [traningLabelTensor, testingLabelTensor] = tf.split(normalisedLabel.tensor, 2);
+      // normalisedFeature.tensor.print();
+      // normalisedLabel.tensor.print();
 
+      // denormalise(normalisedFeature.tensor, normalisedFeature.min, normalisedFeature.max).print();
 
-
-      traningFeatureTensor.print(true);
-      testtingFeatureTesnor.print(true);
-
-      // traningLabelTensor.print(true);
     })();
 
 
