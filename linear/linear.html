@@ -49,7 +49,7 @@
 
 
     const createModel = () => {
-      const model = tf.sequental();
+      const model = tf.sequential();
 
       model.add(tf.layers.dense({
         units: 1,
@@ -58,6 +58,16 @@
         inputDim: 1
       }));
 
+
+
+      // Compile the model and optimizer with a train rate(step);
+
+      const optimizer = tf.train.sgd(0.1);
+
+      model.compile({
+        loss: "meanSquaredError",
+        optimizer
+      });
 
 
       return model;
@@ -125,7 +135,11 @@
 
 
       const model = createModel();
-      model.summary();
+      tfvis.show.modelSummary({ name: "Model Summary" }, model)
+      // model.summary();
+
+      const layer = model.getLayer(undefined, 0);
+      tfvis.show.layer({ name: "Layer 1" }, layer)
 
     })();
 
