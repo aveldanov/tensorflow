@@ -1,23 +1,25 @@
-// define model
 
-const simpleAdd = (input1, input2) => {
-  //tidy used to free up GPU memory
+// Sequential model
+const model = tf.sequential();
 
 
-  return tf.tidy(() => {
-    const x1 = input1;
-    const x2 = input2;
-    const y = x1.add(x2);
-    return y;
-  });
-}
+model.add(
+  tf.layers.simpleRNN({
+    // only needed first layer
+    inputShape: [20, 4],
+    //number of units or neurons
+    units: 20,
+    //weight
 
-// new one dimential tensor/arrays
-const data1 = tf.tensor1d([4, 6, 5, 9]);
-const data2 = tf.tensor1d([5, 4, 34, 21]);
+    recurrentInitializer: 'GlorotNormal'
+  })
 
-// using the model
-const result = simpleAdd(data1, data2);
-result.print();
+);
+
+model.add
+
+
+
+
 
 
