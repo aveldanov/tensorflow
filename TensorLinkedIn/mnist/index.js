@@ -149,7 +149,6 @@ async function train(model, onIteration) {
     loss: 'categoricalCrossentropy',
     metrics: ['accuracy'],
   });
-
   // Batch size is another important hyperparameter. It defines the number of
   // examples we group together, or batch, between updates to the model's
   // weights during training. A value that is too low will update weights using
