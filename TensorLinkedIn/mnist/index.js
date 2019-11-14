@@ -134,7 +134,6 @@ async function train(model, onIteration) {
   // It tries to find the minimum of our loss function with respect to the
   // model's weight parameters.
   const optimizer = 'rmsprop';
-
   // We compile our model by specifying an optimizer, a loss function, and a
   // list of metrics that we will use for model evaluation. Here we're using a
   // categorical crossentropy loss, the standard choice for a multi-class
